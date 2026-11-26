@@ -122,34 +122,32 @@ class _PlayerColumn extends StatelessWidget {
         .toList();
 
     return Container(
-      padding: const EdgeInsets.all(20),
+      clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
           color: const Color(0xFF1B2A4E),
           borderRadius: BorderRadius.circular(24),
-          border: Border.all(color: player.color, width: 3)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(4),
-                decoration:
-                    BoxDecoration(color: player.color, shape: BoxShape.circle),
-                child: ClipOval(
-                  child: Image.asset(player.photo,
-                      width: 110, height: 110, fit: BoxFit.cover),
-                ),
-              ),
-              const SizedBox(width: 18),
-              Expanded(
+          border: Border.all(color: player.color, width: 4)),
+      child: LayoutBuilder(builder: (context, box) {
+        // A big photo that runs the full height of the column.
+        final photoWidth = (box.maxWidth * 0.4).clamp(160.0, 340.0);
+        return Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            SizedBox(
+              width: photoWidth,
+              child: Image.asset(player.photo,
+                  fit: BoxFit.cover, alignment: Alignment.topCenter),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(18),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(player.name,
                         style: TextStyle(
                             color: player.color,
-                            fontSize: 38,
+                            fontSize: 36,
                             fontWeight: FontWeight.w700)),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -157,59 +155,57 @@ class _PlayerColumn extends StatelessWidget {
                         Text(rows.isEmpty ? '-' : average.toStringAsFixed(1),
                             style: const TextStyle(
                                 color: Colors.white,
-                                fontSize: 60,
+                                fontSize: 64,
                                 fontWeight: FontWeight.w700)),
                         const SizedBox(width: 8),
                         const Padding(
-                          padding: EdgeInsets.only(bottom: 10),
+                          padding: EdgeInsets.only(bottom: 12),
                           child: Text('/ 5',
                               style: TextStyle(
                                   color: Colors.white54, fontSize: 26)),
                         ),
-                        const SizedBox(width: 16),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 12),
-                          child: Text(
-                              rows.length == 1 ? '1 vote' : '${rows.length} votes',
-                              style: const TextStyle(
-                                  color: Colors.white70, fontSize: 24)),
-                        ),
                       ],
+                    ),
+                    Text(rows.length == 1 ? '1 vote' : '${rows.length} votes',
+                        style: const TextStyle(
+                            color: Colors.white70, fontSize: 24)),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 6, bottom: 10),
+                      child: Row(
+                        children: [
+                          for (var i = 1; i <= 5; i++)
+                            Icon(
+                                i <= average.round() && rows.isNotEmpty
+                                    ? Icons.star
+                                    : Icons.star_border,
+                                color: const Color(0xFFF2A33A),
+                                size: 34),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: withComment.isEmpty
+                          ? const Align(
+                              alignment: Alignment.topLeft,
+                              child: Text('No comments yet.',
+                                  style: TextStyle(
+                                      color: Colors.white54, fontSize: 24)),
+                            )
+                          : ListView.separated(
+                              itemCount: withComment.length,
+                              separatorBuilder: (_, _) =>
+                                  const SizedBox(height: 12),
+                              itemBuilder: (_, i) =>
+                                  _CommentCard(row: withComment[i]),
+                            ),
                     ),
                   ],
                 ),
               ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 8, bottom: 8),
-            child: Row(
-              children: [
-                for (var i = 1; i <= 5; i++)
-                  Icon(
-                      i <= average.round() && rows.isNotEmpty
-                          ? Icons.star
-                          : Icons.star_border,
-                      color: const Color(0xFFF2A33A),
-                      size: 34),
-              ],
             ),
-          ),
-          Expanded(
-            child: withComment.isEmpty
-                ? const Align(
-                    alignment: Alignment.topLeft,
-                    child: Text('No comments yet.',
-                        style: TextStyle(color: Colors.white54, fontSize: 24)),
-                  )
-                : ListView.separated(
-                    itemCount: withComment.length,
-                    separatorBuilder: (_, _) => const SizedBox(height: 12),
-                    itemBuilder: (_, i) => _CommentCard(row: withComment[i]),
-                  ),
-          ),
-        ],
-      ),
+          ],
+        );
+      }),
     );
   }
 }

@@ -73,6 +73,13 @@ flutter:
           weight: 500
         - asset: assets/fonts/Roboto-Bold.ttf
           weight: 700
+    # Fallbacks so emoji and Kurdish / Arabic comments show correctly.
+    - family: NotoEmoji
+      fonts:
+        - asset: assets/fonts/NotoEmoji.ttf
+    - family: NotoSansArabic
+      fonts:
+        - asset: assets/fonts/NotoSansArabic.ttf
 
   # To add assets to your application, add an assets section, like this:
   # assets:

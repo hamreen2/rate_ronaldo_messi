@@ -201,21 +201,26 @@ class _PlayerButton extends StatelessWidget {
       borderRadius: BorderRadius.circular(16),
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+        padding: const EdgeInsets.all(6),
         decoration: BoxDecoration(
           color: selected
-              ? player.color.withValues(alpha: 0.22)
+              ? player.color.withValues(alpha: 0.25)
               : scheme.surfaceContainerHighest,
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(18),
           border: Border.all(
               color: selected ? player.color : scheme.outlineVariant,
-              width: selected ? 4 : 2),
+              width: selected ? 5 : 2),
         ),
         child: Column(
           children: [
-            ClipOval(
-              child: Image.asset(player.photo,
-                  width: 110, height: 110, fit: BoxFit.cover),
+            // A large portrait photo (4:5) that fills the whole card width.
+            ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: AspectRatio(
+                aspectRatio: 4 / 5,
+                child: Image.asset(player.photo,
+                    fit: BoxFit.cover, alignment: Alignment.topCenter),
+              ),
             ),
             const SizedBox(height: 10),
             Text(player.name,
@@ -225,6 +230,7 @@ class _PlayerButton extends StatelessWidget {
             const SizedBox(height: 4),
             Icon(selected ? Icons.check_circle : Icons.circle_outlined,
                 color: selected ? player.color : scheme.outline),
+            const SizedBox(height: 4),
           ],
         ),
       ),

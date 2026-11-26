@@ -22,6 +22,8 @@ class RateApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
         fontFamily: 'Roboto',
+        // Used when Roboto has no glyph: emoji, then Arabic / Kurdish letters.
+        fontFamilyFallback: const ['NotoEmoji', 'NotoSansArabic'],
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF0E7C6B)),
       ),
       // Two screens. On the web the part after # selects the screen:

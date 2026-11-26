@@ -19,7 +19,6 @@ const players = [
   Player('Lionel Messi', 'assets/images/messi.jpg', Color(0xFF6CB8F0)),
 ];
 
-/// Photo credits (the photos are CC BY-SA 3.0 from Wikimedia Commons).
-const photoCredits =
-    'Photos: Anna Nessie (Ronaldo) and Kirill Venediktov (Messi), '
-    'CC BY-SA 3.0, via Wikimedia Commons.';
+/// Photo credits (the photos are CC BY-SA 4.0 from Wikimedia Commons).
+const photoCredits = 'Photos: Ardfern (Ronaldo) and Bryan Berlin (Messi), '
+    'CC BY-SA 4.0, via Wikimedia Commons. Cropped.';

@@ -8,6 +8,8 @@ A live feedback app: students scan a QR code, choose **Cristiano Ronaldo** or **
 
 Database: `supabase/setup.sql`. The Supabase URL and public key are in `lib/config.dart` (the public key is safe to publish; never put a secret key here).
 
-Photos (bundled in `assets/images`, details in `credits.json`): Anna Nessie (Ronaldo) and Kirill Venediktov (Messi), CC BY-SA 3.0, via Wikimedia Commons.
+Photos (bundled in `assets/images`, details in `credits.json`): Ardfern (Ronaldo) and Bryan Berlin (Messi), CC BY-SA 4.0, via Wikimedia Commons.
 
 Run locally: `flutter run -d chrome`
+
+Fonts (bundled): Roboto, Noto Emoji and Noto Sans Arabic (SIL Open Font License), so emoji and Kurdish / Arabic comments display without any outside website.
